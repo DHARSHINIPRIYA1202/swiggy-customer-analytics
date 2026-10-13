@@ -1,6 +1,7 @@
 from pathlib import Path
 import html
 
+import numpy as np
 import pandas as pd
 import plotly.express as px
 import plotly.graph_objects as go
@@ -321,12 +322,64 @@ def calculate_assessment(
 
     return status, risk, offer
 
+@st.cache_data(show_spinner=False)
+def create_demo_customer_data(rows: int = 500) -> pd.DataFrame:
+    """Create fictional records for public demos when the private CSV is absent."""
+    rng = np.random.default_rng(42)
+    user_id = np.arange(1, rows + 1)
+    total_orders = rng.integers(1, 26, size=rows)
+    average_order_value = rng.uniform(180, 950, size=rows).round(2)
+    total_spend = (total_orders * average_order_value).round(2)
+    recency = rng.integers(0, 151, size=rows)
+
+    customer_status = np.select(
+        [recency <= 30, recency <= 60, recency <= 90],
+        ["Active", "Cooling", "At Risk"],
+        default="Inactive",
+    )
+    risk_level = np.select(
+        [recency <= 30, recency <= 60],
+        ["Low Risk", "Medium Risk"],
+        default="High Risk",
+    )
+    rfm_segment = rng.choice(
+        ["Champions", "Loyal Customers", "Potential Loyalists", "At Risk/Needs Attention"],
+        size=rows,
+        p=[0.16, 0.30, 0.30, 0.24],
+    )
+    r_score = np.select([recency <= 30, recency <= 60], [5, 3], default=1)
+    f_score = np.select([total_orders >= 16, total_orders >= 8], [5, 3], default=1)
+    m_score = np.select([total_spend >= 10000, total_spend >= 4000], [5, 3], default=1)
+
+    return pd.DataFrame({
+        "user_id": user_id,
+        "total_orders": total_orders,
+        "total_spend": total_spend,
+        "total_quantity": total_orders * rng.integers(1, 4, size=rows),
+        "average_order_value": average_order_value,
+        "recency": recency,
+        "frequency": total_orders,
+        "monetary": total_spend,
+        "R_score": r_score,
+        "F_score": f_score,
+        "M_score": m_score,
+        "RFM_score": r_score * 100 + f_score * 10 + m_score,
+        "RFM_total": r_score + f_score + m_score,
+        "rfm_segment": rfm_segment,
+        "risk_level": risk_level,
+        "customer_status": customer_status,
+    })
+
+
 try:
-    customers = load_customer_data(str(DATA_FILE))
-except FileNotFoundError:
-    st.error(f"Customer data file was not found: {DATA_FILE}")
-    st.info("Save customer_analytics_ready.csv inside data/processed, then restart the app.")
-    st.stop()
+    if DATA_FILE.exists():
+        customers = load_customer_data(str(DATA_FILE))
+    else:
+        customers = create_demo_customer_data()
+        st.warning(
+            "Demo mode: the private customer CSV is not included in this public deployment. "
+            "The dashboard is showing fictional sample customers, not real customer records."
+        )
 except Exception as error:
     st.error(f"Could not load the customer dataset: {error}")
     st.stop()
