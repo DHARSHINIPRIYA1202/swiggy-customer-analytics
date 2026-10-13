@@ -34,3 +34,18 @@ desktop.ini
 
 *.log
 *.tmp
+data/raw/
+data/live/
+data/processed/customer_analytics_ready.csv
+data/processed/customer_features.csv
+data/processed/customer_rfm.csv
+data/processed/orders_cleaned.csv
+data/processed/restaurants_cleaned.csv
+data/processed/restaurants_mysql.csv
+data/processed/Swiggy_cleaned.csv
+data/processed/users_cleaned.csv
+models/
+outputs/tables/customer_rfm.csv
+outputs/tables/customer_rfm_individual.csv
+outputs/tables/customer_risk_recommendations.csv
+outputs/tables/customer_segments.csv
