@@ -1,0 +1,4 @@
+Model,CV_ROC_AUC_mean,CV_ROC_AUC_std
+Logistic Regression,0.5053,0.0042
+Decision Tree (depth 5),0.5053,0.0055
+Random Forest (regularized),0.5035,0.0053

@@ -1,0 +1,2 @@
+CREATE DATABASE swiggy_customer_analytics;
+USE swiggy_customer_analytics;

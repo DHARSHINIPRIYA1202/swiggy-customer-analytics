@@ -1,0 +1,16 @@
+feature,bucket,churn_rate,customers
+recency,0-90d,0.8154,10652
+recency,91-180d,0.8069,10641
+recency,181-365d,0.8109,19154
+recency,366-730d,0.8059,27165
+recency,730d+,0.8055,4457
+total_orders,1,0.806,35708
+total_orders,2,0.815,22738
+total_orders,3,0.8081,9673
+total_orders,4,0.8015,3008
+total_orders,5+,0.7941,942
+tenure_days,0 (single day),0.806,35744
+tenure_days,1-180d,0.8138,10450
+tenure_days,181-365d,0.8075,10637
+tenure_days,366-730d,0.8137,14580
+tenure_days,730d+,0.7903,658

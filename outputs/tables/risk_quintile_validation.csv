@@ -1,0 +1,6 @@
+model,quintile,actual_churn_rate,customers
+Logistic Regression,Q1 (lowest score),0.7995,2883
+Logistic Regression,Q2,0.8065,2883
+Logistic Regression,Q3,0.8158,2882
+Logistic Regression,Q4,0.8172,2883
+Logistic Regression,Q5 (highest score),0.8051,2883

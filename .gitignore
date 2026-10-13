@@ -1,0 +1,51 @@
+# Python
+
+**pycache**/
+*.py[cod]
+.venv/
+venv/
+env/
+
+# Jupyter
+
+.ipynb_checkpoints/
+
+# Secrets and environment variables
+
+.env
+.env.*
+!.env.example
+.streamlit/secrets.toml
+
+# Operating system
+
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Logs and temporary files
+
+*.log
+*.tmp
+
+# Raw and local datasets
+data/raw/
+data/live/
+data/processed/customer_analytics_ready.csv
+data/processed/customer_features.csv
+data/processed/customer_rfm.csv
+data/processed/orders_cleaned.csv
+data/processed/restaurants_cleaned.csv
+data/processed/restaurants_mysql.csv
+data/processed/Swiggy_cleaned.csv
+data/processed/users_cleaned.csv
+
+# Trained model files
+models/*.keras
+models/*.pkl
+
+# Customer-level outputs
+outputs/tables/customer_rfm.csv
+outputs/tables/customer_rfm_individual.csv
+outputs/tables/customer_risk_recommendations.csv
+outputs/tables/customer_segments.csv
